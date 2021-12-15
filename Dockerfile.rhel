@@ -49,8 +49,7 @@ COPY --from=build /build/jmx_prometheus_javaagent.jar ${PROMETHEUS_JMX_EXPORTER}
 
 WORKDIR $PRESTO_HOME
 RUN zip -q -d plugin/presto-elasticsearch/log4j-core-*.jar org/apache/logging/log4j/core/lookup/JndiLookup.class
-RUN zip -q -d plugin/accumulo/log4j-1.2.17.jar org/apache/log4j/net/JMSAppender.class
-RUN zip -q -d plugin/phoenix/phoenix-client-4.14.1-HBase-1.4-embedded.jar org/apache/log4j/net/JMSAppender.class
+RUN find plugin/ -name '*.jar' -type f -print0 | xargs -0 grep JMSAppender.class | awk '{print $3}' | xargs -L 1 -I {} /bin/bash -c 'zip -q -d '{}' org/apache/log4j/net/JMSAppender.class'
 
 RUN ln $PRESTO_CLI /usr/local/bin/presto-cli && \
     chmod 755 /usr/local/bin/presto-cli
