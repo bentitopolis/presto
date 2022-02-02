@@ -49,7 +49,6 @@ COPY presto-cli /build/presto-cli
 COPY presto-hive /build/presto-hive
 COPY presto-matching /build/presto-matching
 COPY presto-elasticsearch /build/presto-elasticsearch
-COPY presto-accumulo /build/presto-accumulo
 COPY presto-tests /build/presto-tests
 COPY presto-thrift /build/presto-thrift
 COPY presto-geospatial /build/presto-geospatial
